@@ -1,33 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<title>Page Title</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="">
-<style>
-</style>
+<html lang="en">    
+
+<title> Mass QR Code Generation </title>
+
+<head>
+    <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+              $("#fileUploader").change(function(evt){
+                    var selectedFile = evt.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                      var data = event.target.result;
+                      var workbook = XLSX.read(data, {
+                          type: 'binary'
+                      });
+                      workbook.SheetNames.forEach(function(sheetName) {
+                        
+                          var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                          var json_object = JSON.stringify(XL_row_object);
+                          document.getElementById("jsonObject").innerHTML = json_object;
+
+                        })
+                    };
+
+                    reader.onerror = function(event) {
+                      console.error("File could not be read! Code " + event.target.error.code);
+                    };
+
+                    reader.readAsBinaryString(selectedFile);
+                    
+              });
+        });
+
+        function ProcessData() {
+            pass
+        }
+
+    </script>
+    
+    <script>
+
+    </script>
+
+</head>
 
 <body>
 
-<!-- Load the library -->
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-
-<div id="qrcode"></div>
-<script type="text/javascript">
-
-var array_urls = ["https://google.com", "https://yahoo.com", "https://cnet.com"];
-
-var QR_code_generator = new QRCode("qrcode", {
-    width: 220,
-    height: 220,
-    correctLevel: QRCode.CorrectLevel.H
-    });
-
-    QR_code_generator.makeCode(array_urls[0]);
-    QR_code_generator.makeCode(array_urls[1]);
-    
-
-</script>
-
+    <input type="file" id="fileUploader" name="fileUploader" accept=".xls, .xlsx"/>
+    </br>
+    <button onclick="ProcessData()"> Process Data </button>
+    </br></br>
+    <label id="jsonObject"> JSON : </label>
 </body>
-</html> 
+
+
