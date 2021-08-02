@@ -5,10 +5,11 @@
 <head>
     <meta charset="utf-8" />
     <title> Mass QR Code Generation </title>    
-    <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    
+    
 
 
     <script>
@@ -38,20 +39,9 @@
                             url_array.push(item.AssetLocation);
                           })
 
-                          var targettable = document.getElementById('qrtable-target');
-                          var targetdiv   = document.getElementById('qrcode-target');
-                          console.log(targettable);
                           url_array.forEach(function(item, index) {
-                            console.log(index, item, typeof item);    
-                            
-                            var row_insert = targettable.insertRow(parseInt(index + 1));
-                            var cell1 = row_insert.insertCell(0);
-                            var cell2 = row_insert.insertCell(1);
-
-                            cell1.innerHTML = item;
-                            
-                            
-                            var qrcode =  new QRCode(document.getElementById(`qrcode-target`),{
+                               
+                            new QRCode(document.getElementById(`qrcode-target`),{
                                 text : item,
                                 widght : 256,
                                 height : 256,
@@ -60,17 +50,9 @@
                                 correctLevel: QRCode.CorrectLevel.H
                             });
                             
-
-                            
-
-                            
-                            
-                          })
-
-                          
-
+                          })   
+     
                         })
-
 
                     };
                     
@@ -100,16 +82,8 @@
     </br>
 
     </br></br>
-    <label id="jsonObject"> JSON : </label>
 
-    <div id='qrcode-target'>
-        <table id='qrtable-target'>
-            <tr>
-                <th> Asset </th>
-                <th> Asset Link </th>
-            </tr>
-        </table>
-    </div>
+    <div id='qrcode-target'></div>
 
 
 
