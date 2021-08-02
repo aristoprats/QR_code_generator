@@ -16,6 +16,7 @@
         var url_array = [];
         $(document).ready(function(){
               $("#fileUploader").change(function(evt){
+                    var starttime = new Date();
                     var selectedFile = evt.target.files[0];
                     var reader = new FileReader();
                     reader.onload = function(event) {
@@ -50,7 +51,10 @@
                                 correctLevel: QRCode.CorrectLevel.H
                             });
                             
-                          })   
+                            
+                          })
+                          console.log('Execution time was ');
+                          console.log(new Date() - starttime);
      
                         })
 
