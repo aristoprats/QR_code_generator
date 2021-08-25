@@ -8,6 +8,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     
 
@@ -40,6 +41,12 @@
                             url_array.push(item.AssetLocation);
                           })
 
+
+
+
+
+
+                          /*
                           url_array.forEach(function(item, index) {
                                
                             new QRCode(document.getElementById(`qrcode-target`),{
@@ -50,6 +57,8 @@
                                 colorLight : "#ffffff",
                                 correctLevel: QRCode.CorrectLevel.H
                             });
+                            */
+
                             
                             
                           })
@@ -88,6 +97,17 @@
     </br></br>
 
     <div id='qrcode-target'></div>
+    <script>
+        jQuery(function() {
+            jQuery('#qrcode-target').qrcode('http://google.com');        
+            var canvas = $('#qrcode-target');
+            console.log(canvas);
+            var img = canvas.get(0).toDataURL("image/png");
+            document.write('<img src="'+img+'"/>')
+        });
+    
+
+    </script>
 
 
 
