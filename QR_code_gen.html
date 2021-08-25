@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     
 
@@ -36,12 +37,27 @@
                           console.log(typeof XL_row_object);
                           console.log(XL_row_object);
 
+                          
+                        
                           XL_row_object.forEach(function(item, index) {
                             console.log(item.AssetLocation, index)
                             url_array.push(item.AssetLocation);
+                            var str_divname = 'AutoDiv-' + index.toString();
+                            console.log(str_divname);
+                            var insertion_div = document.createElement('div');
+                            insertion_div.setAttribute("id", str_divname);
+                            insertion_div.innerHTML = '<br /> <h2>Asset Search: ' + item.AssetName + '</h1>';
+                            container_div = document.getElementById('qrcode-target');
+                            container_div.appendChild(insertion_div);
+                            jQuery(function() {
+                                jQuery('#' + str_divname).qrcode({
+                                    text: item.AssetLocation,
+                                    render: "canvas"
+                                });        
+        });
                           })
 
-
+                          console.log(url_array)
 
 
 
@@ -57,11 +73,12 @@
                                 colorLight : "#ffffff",
                                 correctLevel: QRCode.CorrectLevel.H
                             });
-                            */
+                            
 
                             
                             
                           })
+                          */
                           console.log('Execution time was ');
                           console.log(new Date() - starttime);
      
@@ -97,17 +114,19 @@
     </br></br>
 
     <div id='qrcode-target'></div>
+    <!--
     <script>
         jQuery(function() {
-            jQuery('#qrcode-target').qrcode('http://google.com');        
+            jQuery('#qrcode-target').qrcode('http://yahoo.com');        
             var canvas = $('#qrcode-target');
             console.log(canvas);
-            var img = canvas.get(0).toDataURL("image/png");
+            var img = $(canvas)[0].toDataURL("image/png");
             document.write('<img src="'+img+'"/>')
         });
     
 
     </script>
+-->
 
 
 
